@@ -4,7 +4,7 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 0.75rem;
-  scrollbar-width: thin;
+  scrollbar-width: none; /* arrows above do the scrolling */
 }
 
 .category-item {
@@ -83,4 +83,8 @@
   .all-icon {
     height: 130px;
   }
+}
+
+.category-track::-webkit-scrollbar {
+  display: none;
 }

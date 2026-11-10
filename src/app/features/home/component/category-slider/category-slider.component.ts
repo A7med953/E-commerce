@@ -1,11 +1,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { CategoriesService } from '../../../category/services/categories.service';
 import { Category } from '../../../category/models/category';
+import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../../product/services/products.service';
 
 @Component({
   selector: 'app-category-slider',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './category-slider.component.html',
   styleUrl: './category-slider.component.css'
 })
@@ -42,9 +43,11 @@ export class CategorySliderComponent implements OnInit {
     return this.counts !== null && !this.counts[category._id];
   }
 
+  // Click a category to filter Home; click it again to go back to Best Sellers
   select(category: Category | null) {
     if (category && this.isEmpty(category)) return;
-    this.selectCategory.emit(category);
+    const isSame = category && category._id === this.selectedId;
+    this.selectCategory.emit(isSame ? null : category);
   }
 
   scroll(direction: 1 | -1) {

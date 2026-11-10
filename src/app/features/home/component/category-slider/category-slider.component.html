@@ -13,15 +13,11 @@
     </div>
 
     <div class="category-track" #track>
-      <button
-        type="button"
-        class="category-item all-item"
-        [class.active]="!selectedId"
-        (click)="select(null)"
-      >
+      <!-- "All" opens the Categories page -->
+      <a routerLink="/category" class="category-item all-item">
         <span class="all-icon"><i class="fa-solid fa-border-all"></i></span>
         <span class="category-name">All</span>
-      </button>
+      </a>
 
       @for (category of sortedCategories; track category._id) {
         <button

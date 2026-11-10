@@ -28,7 +28,10 @@ export class MainSliderComponent implements AfterViewInit, OnDestroy {
     this.carousel.cycle();
   }
 
+  // pause() clears Bootstrap's auto-play timer; dispose() alone leaves it running
+  // and it throws after the user leaves Home
   ngOnDestroy(): void {
+    this.carousel?.pause();
     this.carousel?.dispose();
   }
 }
