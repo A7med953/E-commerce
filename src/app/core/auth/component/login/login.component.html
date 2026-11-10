@@ -6,6 +6,27 @@
           <div class="card-body p-4">
             <h2 class="text-center text-main fw-bold mb-4">Login</h2>
 
+            <!-- Demo account hint for visitors -->
+            <div class="demo-hint rounded-3 p-3 mb-4">
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                <span class="fw-semibold">
+                  <i class="fa-solid fa-circle-info text-main me-1"></i>
+                  Demo account
+                </span>
+                <button
+                  type="button"
+                  class="btn btn-sm bg-main text-white"
+                  (click)="fillDemo()"
+                >
+                  Use demo account
+                </button>
+              </div>
+              <div class="small text-muted">
+                Email: <code>{{ demoEmail }}</code><br />
+                Password: <code>{{ demoPassword }}</code>
+              </div>
+            </div>
+
             <form [formGroup]="authForm" (ngSubmit)="submitForm()">
               <!-- Email -->
               <div class="mb-3">

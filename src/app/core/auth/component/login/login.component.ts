@@ -19,6 +19,15 @@ resMsg: string = '';
   showPassword = false;
   showRePassword = false;
 
+  // Public demo account shown on the login page so visitors can try the site
+  readonly demoEmail = 'test12345@gmail.com';
+  readonly demoPassword = 'Ahmed@123';
+
+  fillDemo() {
+    this.authForm.patchValue({ email: this.demoEmail, password: this.demoPassword } as any);
+    this.authForm.markAllAsTouched();
+  }
+
   authForm = new FormGroup(
     {
 
