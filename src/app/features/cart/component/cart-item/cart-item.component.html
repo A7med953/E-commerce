@@ -1,0 +1,66 @@
+<div class="cart-item bg-white p-3 mb-3 rounded-3 shadow-sm">
+
+  <div class="row align-items-center g-3">
+
+    <!-- Product Image -->
+    <div class="col-4 col-md-2">
+      <img
+        [src]="product.product.imageCover"
+        [alt]="product.product.title"
+        class="img-fluid rounded-2 cart-image"
+      />
+    </div>
+
+    <!-- Product Info -->
+    <div class="col-8 col-md-7">
+
+      <h4 class="h6 mb-2">
+        {{ product.product.title }}
+      </h4>
+
+      <p class="mb-2">
+        Price:
+        <span class="text-main fw-bold">
+          {{ product.price }} EGP
+        </span>
+      </p>
+
+      <button
+        class="btn btn-sm btn-outline-danger"
+        type="button"
+        (click)="onRemove()"
+      >
+        <i class="fa-solid fa-trash me-1"></i>
+        Remove
+      </button>
+
+    </div>
+
+    <!-- Quantity -->
+    <div class="col-12 col-md-3">
+
+      <div class="d-flex align-items-center justify-content-md-end gap-2">
+
+        
+ <button class="btn btn-sm quantity-btn"
+ (click)="onUpdateQty(product.count+1)"
+ >
+    +
+  </button>
+
+  <span class="fw-bold">
+    {{ product.count }}
+  </span>
+
+  <button class="btn btn-sm quantity-btn"
+  (click)="onUpdateQty(product.count-1)"
+  >
+    -
+  </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

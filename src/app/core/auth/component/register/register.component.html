@@ -1,0 +1,112 @@
+<section class="py-3 d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card border-0 shadow-main rounded-4">
+          <div class="card-body p-4">
+            <h2 class="text-center text-main fw-bold mb-4">Create Account</h2>
+
+            <form [formGroup]="authForm" (ngSubmit)="submitForm()">
+              <!-- Name -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Full Name</label>
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="form-control py-2"
+                  placeholder="Enter your full name"
+                />
+                <validation [controls]="authForm.get('name')" />
+              </div>
+              <!-- Email -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="form-control py-2"
+                  placeholder="Enter your email"
+                />
+                <validation [controls]="authForm.get('email')" />
+              </div>
+
+              <!-- Password -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+
+                <div class="position-relative">
+                  <input
+                    formControlName="password"
+                    [type]="showPassword ? 'text' : 'password'"
+                    class="form-control py-2 pe-5"
+                    placeholder="Enter your password"
+                  />
+
+                  <i
+                    class="fa-solid position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer"
+                    [class.fa-eye]="!showPassword"
+                    [class.fa-eye-slash]="showPassword"
+                    (click)="showPassword = !showPassword"
+                  ></i>
+                </div>
+
+                <validation [controls]="authForm.get('password')" />
+              </div>
+              <!-- Confirm Password -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Confirm Password</label>
+
+                <div class="position-relative">
+                  <input
+                    formControlName="rePassword"
+                    [type]="showRePassword ? 'text' : 'password'"
+                    class="form-control py-2 pe-5"
+                    placeholder="Confirm password"
+                    
+                  />
+
+                  <i
+                    class="fa-solid position-absolute top-50 end-0 translate-middle-y me-3 cursor-pointer"
+                    [class.fa-eye]="!showRePassword"
+                    [class.fa-eye-slash]="showRePassword"
+                    (click)="showRePassword = !showRePassword"
+                  ></i>
+                </div>
+
+                <validation [controls]="authForm" />
+              </div>
+<button
+  type="submit"
+  class="btn bg-main text-white w-100 py-2 fw-semibold"
+  [disabled]="authForm.invalid || isLoading"
+>
+  @if (!isLoading) {
+    Create Account
+  } @else {
+    <span
+      class="spinner-border spinner-border-sm me-2"
+      role="status"
+      aria-hidden="true"
+    ></span>
+    Loading...
+  }
+</button>
+            </form>
+            @if (resMsg) {
+              <div class="alert alert-danger text-center mt-3">
+                {{ resMsg }}
+              </div>
+            }
+
+            <hr class="my-4" />
+
+            <p class="text-center mb-0">
+              Already have an account?
+              <a routerLink="/login" class="text-main fw-bold"> Login </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

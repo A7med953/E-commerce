@@ -1,0 +1,97 @@
+<section class="py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="card border-0 shadow-main rounded-4">
+          <div class="card-body p-4 p-md-5">
+            <h2 class="text-center text-main fw-bold mb-4">Your Address</h2>
+
+            <form [formGroup]="checkoutForm" (ngSubmit)="submitForm()">
+              <!-- City -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold"> City </label>
+
+                <input
+                  formControlName="city"
+                  type="text"
+                  class="form-control py-2"
+                  placeholder="Enter your city"
+                />
+                @if (
+                  checkoutForm.get("city")?.invalid &&
+                  checkoutForm.get("city")?.touched
+                ) {
+                  <small class="text-danger"> City is required </small>
+                }
+              </div>
+
+              <!-- Phone -->
+              <div class="mb-3">
+                <label class="form-label fw-semibold"> Phone </label>
+
+                <input
+                  formControlName="phone"
+                  type="tel"
+                  class="form-control py-2"
+                  placeholder="Enter your phone"
+                />
+                @if (
+                  checkoutForm.get("phone")?.invalid &&
+                  checkoutForm.get("phone")?.touched
+                ) {
+                  <small class="text-danger"> Phone is required </small>
+                }
+              </div>
+
+              <!-- Details -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold"> Address Details </label>
+
+                <textarea
+                  formControlName="details"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Enter your address details"
+                ></textarea>
+                
+                @if (
+                  checkoutForm.get("details")?.invalid &&
+                  checkoutForm.get("details")?.touched
+                ) {
+                  <small class="text-danger">
+                    Address details are required
+                  </small>
+                } 
+              </div>
+
+              <!-- Submit -->
+              <button
+                type="submit"
+                class="btn bg-main text-white w-100 py-2 fw-semibold"
+                [disabled]="checkoutForm.invalid || isLoading"
+              >
+                @if (!isLoading) {
+                  Place Order
+                } @else {
+                  <span
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+
+                  Processing...
+                }
+              </button>
+            </form>
+
+            @if (resMsg) {
+              <div class="alert alert-danger text-center mt-3 mb-0">
+                {{ resMsg }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

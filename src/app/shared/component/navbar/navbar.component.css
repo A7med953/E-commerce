@@ -1,0 +1,43 @@
+.navbar-toggler:focus,
+.navbar-toggler:hover {
+  border-color: var(--main-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(10, 173, 10, 0.25);
+}
+ 
+
+.hover-main:hover {
+  color: var(--main-color) !important;
+}
+.cart-link {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--main-color);
+  color: white;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.logout-link {
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-4xl fw-bold mb-4">Popular Products</h2>
+    <div
+      class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-4"
+    >
+      @for (product of allProducts; track product._id) {
+        <app-product-card [product]="product" (addToCart)="addProductToCart($event)" />
+      }
+    </div>
+  </div>
+</section>

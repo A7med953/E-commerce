@@ -1,0 +1,20 @@
+.cart-container {
+  background-color: #fff;
+}
+
+.cart-title {
+  font-weight: 600;
+}
+
+.cart-price {
+  font-size: 18px;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 60px 0;
+  color: #777;
+}
+.bg-main {
+  background-color: var(--main-color) !important;
+}

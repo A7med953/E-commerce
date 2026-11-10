@@ -1,0 +1,53 @@
+@if (cartDetails.numOfCartItems != 0) {
+  <section class="container my-5 bg-main-light p-4 rounded-3 shadow-sm">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="cart-title mb-3">Shop Cart</h1>
+
+        <p class="cart-price mb-0">
+          Total cart price:
+          <span class="text-main fw-bold">
+            {{ cartDetails.data.totalCartPrice }} EGP
+          </span>
+        </p>
+      </div>
+
+      <div>
+        <button (click)="clearAll()" class="btn btn-outline-danger">
+          Clear All
+        </button>
+      </div>
+    </div>
+
+    @for (item of cartDetails.data.products; track $index) {
+      <app-cart-item
+        [product]="item"
+        (removeProduct)="removeProduct($event)"
+        (updateProduct)="updateQty($event.id, $event.newCount)"
+      />
+    }
+    <div
+      class="d-flex justify-content-between align-items-center mt-4 pt-4 border-top"
+    >
+      <button routerLink="/products" class="btn btn-outline-success">
+        Continue Shopping
+      </button>
+
+      <button
+        [routerLink]="['/Checkout', cartDetails.cartId]"
+        class="btn bg-main text-white"
+      >
+        Go to Checkout
+        <span class="ms-2"> {{ cartDetails.data.totalCartPrice }} EGP </span>
+      </button>
+    </div>
+  </section>
+} @else {
+  <div class="container my-5 text-center">
+    <h2>Cart is Empty</h2>
+
+    <button routerLink="/products" class="btn bg-main text-white mt-3">
+      Continue Shopping
+    </button>
+  </div>
+}

@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg bg-main-light">
+  <div class="container">
+    <img src="/images/freshcart-logo.svg" class="navbar-brand" routerLink="/" />
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      @if (layout == "auth") {
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              aria-current="page"
+              routerLink="/login"
+              routerLinkActive="text-main"
+              >login</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              routerLink="/register"
+              routerLinkActive="text-main"
+              >register</a
+            >
+          </li>
+        </ul>
+      } @else {
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              aria-current="page"
+              routerLink="/home"
+              routerLinkActive="text-main"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              aria-current="page"
+              routerLink="/products"
+              routerLinkActive="text-main"
+              >Products</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              aria-current="page"
+              routerLink="/category"
+              routerLinkActive="text-main"
+              >Categories</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              aria-current="page"
+              routerLink="/Brands"
+              routerLinkActive="text-main"
+              >Brands</a
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3 align-items-lg-center">
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold d-flex align-items-center position-relative cart-link hover-main"
+              routerLink="/cart"
+              routerLinkActive="text-main"
+            >
+              <i class="fa-solid fa-basket-shopping fs-5"></i>
+
+              <span class="cart-badge">
+                {{ c }}
+              </span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main logout-link"
+              (click)="logout()"
+            >
+              Logout
+            </a>
+          </li>
+        </ul>
+      }
+    </div>
+  </div>
+</nav>
