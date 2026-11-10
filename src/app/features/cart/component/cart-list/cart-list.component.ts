@@ -11,6 +11,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './cart-list.component.css',
 })
 export class CartListComponent implements OnInit {
+  get hasItems(): boolean {
+    return (this.cartDetails.numOfCartItems ?? 0) > 0 && !!this.cartDetails.data;
+  }
+
   cartDetails: Cart = {} as Cart;
   isLoading: boolean = true;
   private readonly cartService = inject(CartService);
@@ -25,7 +29,11 @@ export class CartListComponent implements OnInit {
         this.cartDetails = res;
         this.isLoading = false;
       },
-
+      // The API answers 404 when the user never had a cart: treat it as empty
+      error: () => {
+        this.cartDetails = {} as Cart;
+        this.isLoading = false;
+      },
     });
   }
   removeProduct(id: string) {
@@ -47,7 +55,7 @@ clearAll(): void {
   this.cartService.clearCart().subscribe({
     next: (res) => {
       console.log(res);
-      this.loadCart();
+      this.cartDetails = {} as Cart;
     },
 
   });

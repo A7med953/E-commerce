@@ -21,7 +21,10 @@ export class OrderService {
       city: string;
     },
   ): Observable<any> {
-    const returnURl="?url=http://localhost:4200" //url forntend
+    // Where Stripe sends the user back after paying: this app's own address
+    // (localhost while developing, the GitHub Pages URL when deployed)
+    const appUrl = document.baseURI.replace(/\/$/, '');
+    const returnURl = '?url=' + encodeURIComponent(appUrl);
     return this.http.post<any>(
       environments.baseUrl + 'orders/checkout-session/' + cartId + returnURl,
       {
@@ -29,5 +32,9 @@ export class OrderService {
       },
 
     );
+  }
+
+  getUserOrders(userId: string): Observable<any> {
+    return this.http.get<any>(environments.baseUrl + 'orders/user/' + userId);
   }
 }

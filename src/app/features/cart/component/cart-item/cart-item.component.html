@@ -39,24 +39,25 @@
     <!-- Quantity -->
     <div class="col-12 col-md-3">
 
-      <div class="d-flex align-items-center justify-content-md-end gap-2">
-
-        
- <button class="btn btn-sm quantity-btn"
- (click)="onUpdateQty(product.count+1)"
- >
-    +
-  </button>
-
-  <span class="fw-bold">
-    {{ product.count }}
-  </span>
-
-  <button class="btn btn-sm quantity-btn"
-  (click)="onUpdateQty(product.count-1)"
-  >
-    -
-  </button>
+      <div class="d-flex justify-content-md-end">
+        <div class="qty" role="group" aria-label="Quantity">
+          <button
+            type="button"
+            (click)="onUpdateQty(product.count - 1)"
+            [disabled]="product.count <= 1"
+            aria-label="Decrease"
+          >
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <span class="fw-bold">{{ product.count }}</span>
+          <button
+            type="button"
+            (click)="onUpdateQty(product.count + 1)"
+            aria-label="Increase"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
       </div>
 
     </div>

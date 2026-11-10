@@ -32,6 +32,16 @@ this.logout
   }
   
 }
+// The logged-in user's id, read from the JWT (needed for the orders API)
+getUserId(): string | null {
+  const token = this.getToken();
+  if (!token) return null;
+  try {
+    return (jwtDecode(token) as { id?: string }).id ?? null;
+  } catch {
+    return null;
+  }
+}
 saveToken(token: string): void {
   if (isPlatformBrowser(this.platformId)) {
     localStorage.setItem('authToken', token);

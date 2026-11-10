@@ -1,15 +1,18 @@
 <section class="pt-5">
   <div class="container">
-    <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="d-flex align-items-center justify-content-between mb-3 gap-2">
       <h2 class="fw-bold mb-0">Shop by Category</h2>
-      @if (selectedId) {
-        <button type="button" class="btn btn-sm btn-outline-success" (click)="select(null)">
-          Show all products
+      <div class="d-flex gap-2">
+        <button type="button" class="scroll-btn" (click)="scroll(-1)" aria-label="Scroll left">
+          <i class="fa-solid fa-chevron-left"></i>
         </button>
-      }
+        <button type="button" class="scroll-btn" (click)="scroll(1)" aria-label="Scroll right">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="category-track">
+    <div class="category-track" #track>
       <button
         type="button"
         class="category-item all-item"
@@ -20,13 +23,19 @@
         <span class="category-name">All</span>
       </button>
 
-      @for (category of categories; track category._id) {
+      @for (category of sortedCategories; track category._id) {
         <button
           type="button"
           class="category-item"
           [class.active]="selectedId === category._id"
+          [class.is-empty]="isEmpty(category)"
+          [disabled]="isEmpty(category)"
+          [attr.title]="isEmpty(category) ? 'No products yet' : category.name"
           (click)="select(category)"
         >
+          @if (isEmpty(category)) {
+            <span class="badge bg-secondary empty-badge">No products</span>
+          }
           <img [src]="category.image" [alt]="category.name" loading="lazy" />
           <span class="category-name">{{ category.name }}</span>
         </button>

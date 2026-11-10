@@ -7,7 +7,7 @@ import { CategoryComponent } from './features/category/component/category/catego
 import { NotFoundComponent } from './core/auth/component/not-found/not-found.component';
 import { AuthlayoutComponent } from './core/layouts/authlayout/authlayout.component';
 import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.component';
-import { ProductListComponent } from './features/product/component/product-list/product-list.component';
+import { ShopComponent } from './features/product/component/shop/shop.component';
 import { BrandsListComponent } from './features/brands/component/brands-list/brands-list.component';
 import { ProductDeatilsComponent } from './features/product/component/product-deatils/product-deatils.component';
 
@@ -27,6 +27,7 @@ export const routes: Routes = [
         path: '',
         component: LoginComponent,
         pathMatch: 'full',
+        title: 'Login',
       },
     ],
   },
@@ -40,6 +41,7 @@ export const routes: Routes = [
         path: '',
         component: RegisterComponent,
         pathMatch: 'full',
+        title: 'Register',
       },
     ],
   },
@@ -66,34 +68,41 @@ export const routes: Routes = [
       {
         path: 'category',
         component: CategoryComponent,
+        title: 'Categories',
       },
 
       {
         path: 'products',
-        component: ProductListComponent,
+        component: ShopComponent,
+        title: 'Shop',
       },
 
       {
         path: 'product-details/:id',
         component: ProductDeatilsComponent,
+        title: 'Product Details',
       },
 
       {
         path: 'brands',
         component: BrandsListComponent,
+        title: 'Brands',
       },
 
       {
         path: 'cart',
         component: CartListComponent,
+        title: 'Cart',
       },
       { 
         path: 'Checkout/:id',
-        component: CheckoutComponent
+        component: CheckoutComponent,
+        title: 'Checkout',
       },
       { 
         path: 'allorders',
-        component: OrderComponent
+        component: OrderComponent,
+        title: 'My Orders',
       },
     ],
   },
@@ -101,5 +110,6 @@ export const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
+    title: 'Page not found',
   },
 ];

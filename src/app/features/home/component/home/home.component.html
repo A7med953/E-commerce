@@ -3,7 +3,16 @@
   [selectedId]="selectedCategory?._id ?? null"
   (selectCategory)="onSelectCategory($event)"
 ></app-category-slider>
-<app-product-list
-  [categoryId]="selectedCategory?._id ?? null"
-  [title]="selectedCategory ? selectedCategory.name : 'Popular Products'"
-></app-product-list>
+@if (selectedCategory) {
+  <app-product-list
+    [categoryId]="selectedCategory._id"
+    [title]="selectedCategory.name"
+  ></app-product-list>
+} @else {
+  <app-product-list
+    title="Best Sellers"
+    sort="-sold"
+    [limit]="10"
+    [showViewAll]="true"
+  ></app-product-list>
+}

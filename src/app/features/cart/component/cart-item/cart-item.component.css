@@ -22,3 +22,30 @@
   background-color: var(--main-color);
   border-color: var(--main-color);
 }
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 999px;
+  padding: 0.25rem;
+}
+
+.qty button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 0;
+  background: var(--light-color);
+}
+
+.qty button:hover:not(:disabled) {
+  background: var(--main-color);
+  color: #fff;
+}
+
+.qty button:disabled {
+  opacity: 0.4;
+}

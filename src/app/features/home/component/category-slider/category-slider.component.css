@@ -4,9 +4,11 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 0.75rem;
+  scrollbar-width: thin;
 }
 
 .category-item {
+  position: relative;
   flex: 0 0 160px;
   scroll-snap-align: start;
   background: #fff;
@@ -44,7 +46,7 @@
   text-overflow: ellipsis;
 }
 
-.category-item:hover,
+.category-item:not(:disabled):hover,
 .category-item.active {
   border-color: var(--main-color);
   box-shadow: var(--shadow);
@@ -52,4 +54,33 @@
 
 .category-item.active .category-name {
   color: var(--main-color);
+}
+
+.category-item:disabled {
+  opacity: 1;
+  color: #6c757d;
+}
+
+.scroll-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid #dcdcdc;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.scroll-btn:hover {
+  border-color: var(--main-color);
+  color: var(--main-color);
+}
+
+@media (max-width: 575.98px) {
+  .category-item {
+    flex-basis: 120px;
+  }
+  .category-item img,
+  .all-icon {
+    height: 130px;
+  }
 }

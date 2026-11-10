@@ -1,58 +1,109 @@
-<section >
+<section class="py-5">
   <div class="container">
-    <div class="row align-items-center">
-
-      <div class="col-md-4 text-center">
-        <img
-          [src]="productDetails.imageCover"
-          class="img-fluid rounded"
-          [alt]="productDetails.title"
-        />
+    @if (!isLoaded) {
+      <div class="text-center py-5">
+        <span class="spinner-border text-success" role="status"></span>
       </div>
-
-      <div class="col-md-8">
-        <h1 class="fw-bold mb-3">{{ productDetails.title }}</h1>
-
-        <p class="text-muted">
-          {{ productDetails.description }}
-        </p>
-
-      <div class="border rounded-3 p-3 mt-4">
-
-  <h3 class="text-success fw-bold">
-    {{ productDetails.price }} EGP
-  </h3>
-
-  <div class="input-group my-3" style="max-width: 180px;">
-    <button class="btn btn-outline-dark" (click)="decreaseQuantity()">
-      -
-    </button>
-
-    <input
-      type="text"
-      class="form-control text-center fw-bold"
-      [value]="quantity"
-      readonly
-    >
-
-    <button class="btn btn-outline-dark" (click)="increaseQuantity()">
-      +
-    </button>
-  </div>
-
-  <p class="fw-semibold">
-    Total:
-    <span class="text-success">
-      {{ productDetails.price * quantity }} EGP
-    </span>
-  </p>
-
-</div>
-        <button class="btn btn-success w-100">
-          Add to Cart
-        </button>
+    } @else if (!productDetails._id) {
+      <div class="text-center py-5">
+        <p class="text-muted">This product could not be found.</p>
+        <a routerLink="/products" class="btn bg-main text-white">Back to shop</a>
       </div>
+    } @else {
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb small mb-0 flex-nowrap">
+          <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/products">Shop</a></li>
+          <li class="breadcrumb-item active text-truncate crumb-last" aria-current="page">
+            {{ productDetails.title }}
+          </li>
+        </ol>
+      </nav>
 
-    </div>
+      <div class="row g-4 g-lg-5">
+        <!-- Gallery -->
+        <div class="col-md-5">
+          <div class="main-image mb-3">
+            <img [src]="selectedImage" [alt]="productDetails.title" />
+          </div>
+          @if (gallery.length > 1) {
+            <div class="thumbs">
+              @for (img of gallery; track img) {
+                <button
+                  type="button"
+                  class="thumb"
+                  [class.active]="img === selectedImage"
+                  (click)="selectedImage = img"
+                >
+                  <img [src]="img" [alt]="productDetails.title" loading="lazy" />
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Info -->
+        <div class="col-md-7">
+          <a
+            [routerLink]="['/products']"
+            [queryParams]="{ category: productDetails.category._id }"
+            class="text-main fw-semibold small"
+          >
+            {{ productDetails.category.name }}
+          </a>
+          <h1 class="fw-bold h3 mt-1 mb-2">{{ productDetails.title }}</h1>
+
+          <div class="d-flex flex-wrap align-items-center gap-3 mb-3 small">
+            <span>
+              <i class="fa-solid fa-star text-rating"></i>
+              {{ productDetails.ratingsAverage }}
+              <span class="text-muted">({{ productDetails.ratingsQuantity }} reviews)</span>
+            </span>
+            @if (productDetails.brand) {
+              <span class="text-muted">
+                Brand: <span class="text-dark fw-semibold">{{ productDetails.brand.name }}</span>
+              </span>
+            }
+          </div>
+
+          <p class="text-muted">{{ productDetails.description }}</p>
+
+          <div class="buy-box p-3 p-md-4 mt-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+              <span class="h3 text-main fw-bold mb-0">{{ productDetails.price }} EGP</span>
+
+              <div class="qty" role="group" aria-label="Quantity">
+                <button type="button" (click)="decreaseQuantity()" [disabled]="quantity <= 1" aria-label="Decrease">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="fw-bold">{{ quantity }}</span>
+                <button type="button" (click)="increaseQuantity()" aria-label="Increase">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <p class="fw-semibold mt-3 mb-3">
+              Total:
+              <span class="text-main">{{ productDetails.price * quantity }} EGP</span>
+            </p>
+
+            <button
+              type="button"
+              class="btn bg-main text-white w-100 py-2 fw-semibold"
+              (click)="addToCart()"
+              [disabled]="isAdding"
+            >
+              @if (isAdding) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Adding...
+              } @else {
+                <i class="fa-solid fa-cart-plus me-1"></i> Add to Cart
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </section>

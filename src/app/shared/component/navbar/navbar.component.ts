@@ -1,5 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs';
+
+// Bootstrap's JS bundle is loaded globally from angular.json "scripts"
+declare const bootstrap: any;
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { CartService } from '../../../features/cart/services/cart.service';
 
@@ -25,7 +29,18 @@ export class NavbarComponent {
       this.c = count;
     });
   
-    this.cartService.getLoggedUserCart().subscribe();
+    // No cart yet answers 404; the badge just stays at 0
+    this.cartService.getLoggedUserCart().subscribe({ error: () => {} });
+
+    // On phones, close the opened menu after the user picks a page
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => {
+        const menu = document.getElementById('navbarSupportedContent');
+        if (menu?.classList.contains('show') && typeof bootstrap !== 'undefined') {
+          bootstrap.Collapse.getOrCreateInstance(menu, { toggle: false }).hide();
+        }
+      });
   }
  c: number = 0;
 

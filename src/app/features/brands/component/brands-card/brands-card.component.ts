@@ -10,5 +10,7 @@ import { Brand } from '../../models/brand';
 export class BrandsCardComponent {
   @Input() brand!: Brand;
   @Input() active = false;
+  // True when the brand has no products: card is blurred and not clickable
+  @Input() empty = false;
   @Output() pick = new EventEmitter<Brand>();
 }

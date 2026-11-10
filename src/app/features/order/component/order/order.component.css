@@ -1,0 +1,23 @@
+.order-card {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 16px;
+}
+
+.order-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  padding: 0.25rem;
+  flex-shrink: 0;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+
+a:hover {
+  color: var(--main-color);
+}

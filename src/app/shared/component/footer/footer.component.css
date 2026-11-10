@@ -1,0 +1,11 @@
+.footer-logo {
+  height: 32px;
+}
+
+footer a {
+  color: #495057;
+}
+
+footer a:hover {
+  color: var(--main-color);
+}

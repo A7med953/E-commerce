@@ -1,3 +1,96 @@
-nav{
-    color: #bd5858;
+.main-image {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.main-image img {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+  display: block;
+}
+
+.thumbs {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.thumb {
+  flex: 0 0 72px;
+  height: 72px;
+  padding: 0.25rem;
+  background: #fff;
+  border: 2px solid #ececec;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.thumb.active,
+.thumb:hover {
+  border-color: var(--main-color);
+}
+
+.buy-box {
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  background: var(--light-color);
+}
+
+.qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 999px;
+  padding: 0.25rem;
+}
+
+.qty button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 0;
+  background: var(--light-color);
+}
+
+.qty button:hover:not(:disabled) {
+  background: var(--main-color);
+  color: #fff;
+}
+
+.qty button:disabled {
+  opacity: 0.4;
+}
+
+.breadcrumb a:hover {
+  color: var(--main-color);
+}
+
+@media (max-width: 767.98px) {
+  .main-image img {
+    height: 300px;
+  }
+}
+
+.breadcrumb-item {
+  white-space: nowrap;
+}
+
+.crumb-last {
+  min-width: 0;
+}
+
+.thumbs {
+  scrollbar-width: thin;
 }

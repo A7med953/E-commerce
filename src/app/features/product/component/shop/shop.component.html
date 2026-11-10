@@ -1,0 +1,132 @@
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-end justify-content-between gap-2 mb-4">
+      <div>
+        <h1 class="fw-bold h2 mb-1">Shop</h1>
+        @if (isLoaded && !loadError) {
+          <p class="text-muted mb-0">{{ filtered.length }} products</p>
+        }
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <label for="sort" class="small text-muted text-nowrap">Sort by</label>
+        <select
+          id="sort"
+          class="form-select form-select-sm"
+          [(ngModel)]="sort"
+          (ngModelChange)="onFilterChange()"
+        >
+          <option value="popular">Best selling</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="rating">Top rated</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Filters -->
+      <aside class="col-lg-3">
+        <div class="filters p-3">
+          <div class="mb-4">
+            <label for="search" class="form-label fw-semibold">Search</label>
+            <div class="position-relative">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input
+                id="search"
+                type="search"
+                class="form-control ps-5"
+                placeholder="Product, brand..."
+                [(ngModel)]="search"
+                (ngModelChange)="onFilterChange()"
+              />
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h2 class="h6 fw-semibold">Category</h2>
+            <div class="filter-list">
+              <label class="filter-option">
+                <input type="radio" name="category" value="" [(ngModel)]="categoryId" (ngModelChange)="onFilterChange()" />
+                <span>All</span>
+              </label>
+              @for (c of categories; track c._id) {
+                <label class="filter-option">
+                  <input type="radio" name="category" [value]="c._id" [(ngModel)]="categoryId" (ngModelChange)="onFilterChange()" />
+                  <span>{{ c.name }}</span>
+                  <span class="count">{{ c.count }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="brand" class="h6 fw-semibold form-label">Brand</label>
+            <select
+              id="brand"
+              class="form-select"
+              [(ngModel)]="brandId"
+              (ngModelChange)="onFilterChange()"
+            >
+              <option value="">All brands</option>
+              @for (b of brands; track b._id) {
+                <option [value]="b._id">{{ b.name }} ({{ b.count }})</option>
+              }
+            </select>
+          </div>
+
+          @if (hasFilters) {
+            <button type="button" class="btn btn-outline-secondary btn-sm w-100" (click)="clearFilters()">
+              <i class="fa-solid fa-xmark me-1"></i> Clear filters
+            </button>
+          }
+        </div>
+      </aside>
+
+      <!-- Products -->
+      <div class="col-lg-9">
+        @if (!isLoaded) {
+          <div class="text-center py-5">
+            <span class="spinner-border text-success" role="status"></span>
+          </div>
+        } @else if (loadError) {
+          <p class="text-center text-danger py-5">Couldn't load products. Please refresh the page.</p>
+        } @else if (filtered.length === 0) {
+          <div class="text-center py-5">
+            <i class="fa-solid fa-box-open fs-1 text-muted mb-3"></i>
+            <p class="text-muted">No products match your filters.</p>
+            <button type="button" class="btn bg-main text-white" (click)="clearFilters()">Clear filters</button>
+          </div>
+        } @else {
+          <div class="row row-cols-2 row-cols-md-3 g-3 g-md-4">
+            @for (product of pageItems; track product._id) {
+              <app-product-card [product]="product" (addToCart)="addProductToCart($event)" />
+            }
+          </div>
+
+          @if (totalPages > 1) {
+            <nav class="mt-5" aria-label="Products pages">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="page === 1">
+                  <button class="page-link" (click)="goToPage(page - 1)" aria-label="Previous">
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </button>
+                </li>
+                @for (p of pages; track p) {
+                  <li class="page-item" [class.active]="p === page">
+                    <button class="page-link" (click)="goToPage(p)">{{ p }}</button>
+                  </li>
+                }
+                <li class="page-item" [class.disabled]="page === totalPages">
+                  <button class="page-link" (click)="goToPage(page + 1)" aria-label="Next">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

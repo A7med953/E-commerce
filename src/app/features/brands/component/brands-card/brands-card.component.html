@@ -1,4 +1,13 @@
-<div class="brand-card h-100" [class.active]="active" (click)="pick.emit(brand)">
+<div
+  class="brand-card h-100"
+  [class.active]="active"
+  [class.is-empty]="empty"
+  [attr.title]="empty ? 'No products yet' : brand.name"
+  (click)="!empty && pick.emit(brand)"
+>
+  @if (empty) {
+    <span class="badge bg-secondary empty-badge">No products yet</span>
+  }
   <img [src]="brand.image" [alt]="brand.name" loading="lazy" />
   <p class="text-center fw-semibold mb-0 pb-3">{{ brand.name }}</p>
 </div>

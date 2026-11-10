@@ -9,13 +9,18 @@
     }
 
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
-      @for (category of categories; track category._id) {
+      @for (category of sortedCategories; track category._id) {
         <div class="col">
           <div
             class="category-card h-100"
             [class.active]="selectedCategory?._id === category._id"
+            [class.is-empty]="isEmpty(category)"
+            [attr.title]="isEmpty(category) ? 'No products yet' : category.name"
             (click)="selectCategory(category)"
           >
+            @if (isEmpty(category)) {
+              <span class="badge bg-secondary empty-badge">No products yet</span>
+            }
             <img [src]="category.image" [alt]="category.name" loading="lazy" />
             <h3 class="h5 text-main fw-bold text-center p-3 mb-0">
               {{ category.name }}

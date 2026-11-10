@@ -1,2 +1,66 @@
-<p>order works!</p>
-vejjovdnk   
+<section class="py-5">
+  <div class="container">
+    <h1 class="fw-bold h2 mb-4">My Orders</h1>
+
+    @if (!isLoaded) {
+      <div class="text-center py-5">
+        <span class="spinner-border text-success" role="status"></span>
+      </div>
+    } @else if (orders.length === 0) {
+      <div class="text-center py-5">
+        <i class="fa-solid fa-receipt display-4 text-main mb-3"></i>
+        <h2 class="h4 fw-bold">No orders yet</h2>
+        <p class="text-muted">When you place an order it will show up here.</p>
+        <a routerLink="/products" class="btn bg-main text-white">Start shopping</a>
+      </div>
+    } @else {
+      @for (order of orders; track order._id) {
+        <div class="order-card p-3 p-md-4 mb-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
+            <div>
+              <h2 class="h6 fw-bold mb-1">Order #{{ order.id }}</h2>
+              <span class="small text-muted">{{ order.createdAt | date: 'mediumDate' }}</span>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge" [class]="order.isPaid ? 'bg-success' : 'bg-warning text-dark'">
+                {{ order.isPaid ? 'Paid' : 'Not paid' }}
+              </span>
+              <span class="badge" [class]="order.isDelivered ? 'bg-success' : 'bg-secondary'">
+                {{ order.isDelivered ? 'Delivered' : 'On the way' }}
+              </span>
+              <span class="badge bg-light text-dark border">
+                {{ order.paymentMethodType === 'card' ? 'Card' : 'Cash' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            @for (item of order.cartItems; track item._id) {
+              <div class="col-12 col-md-6">
+                <div class="d-flex align-items-center gap-3">
+                  <img [src]="item.product.imageCover" [alt]="item.product.title" class="order-img" loading="lazy" />
+                  <div class="min-w-0">
+                    <a [routerLink]="['/product-details', item.product._id]" class="fw-semibold d-block text-truncate">
+                      {{ item.product.title }}
+                    </a>
+                    <span class="small text-muted">{{ item.count }} × {{ item.price }} EGP</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="d-flex flex-wrap justify-content-between gap-2 border-top mt-3 pt-3 small">
+            <span class="text-muted">
+              <i class="fa-solid fa-location-dot me-1"></i>
+              {{ order.shippingAddress?.city }}
+            </span>
+            <span class="fw-bold">
+              Total: <span class="text-main">{{ order.totalOrderPrice }} EGP</span>
+            </span>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</section>

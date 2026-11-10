@@ -1,4 +1,5 @@
 .category-card {
+  position: relative;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
   overflow: hidden;
@@ -14,9 +15,19 @@
   display: block;
 }
 
-.category-card:hover,
+.category-card:not(.is-empty):hover,
 .category-card.active {
   border-color: var(--main-color);
   box-shadow: var(--shadow);
   transform: translateY(-4px);
+}
+
+.category-card.is-empty h3 {
+  color: #6c757d !important;
+}
+
+@media (max-width: 575.98px) {
+  .category-card img {
+    height: 180px;
+  }
 }

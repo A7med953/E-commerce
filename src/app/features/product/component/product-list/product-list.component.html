@@ -1,8 +1,22 @@
 <section class="py-5">
   <div class="container">
-    <h2 class="text-4xl fw-bold mb-4">{{ title }}</h2>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h2 class="fw-bold mb-0">{{ title }}</h2>
+      @if (showViewAll) {
+        <a routerLink="/products" class="text-main fw-semibold">
+          View all <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
+      }
+    </div>
+
+    @if (!isLoaded) {
+      <div class="text-center py-5">
+        <span class="spinner-border text-success" role="status"></span>
+      </div>
+    }
+
     <div
-      class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-4"
+      class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 g-md-4"
     >
       @for (product of allProducts; track product._id) {
         <app-product-card [product]="product" (addToCart)="addProductToCart($event)" />

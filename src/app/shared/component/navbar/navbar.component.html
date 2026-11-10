@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-main-light">
   <div class="container">
-    <img src="images/freshcart-logo.svg" class="navbar-brand" routerLink="/" />
+    <a class="navbar-brand" routerLink="/home">
+      <img src="images/freshcart-logo.svg" alt="FreshCart" class="brand-logo" />
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -18,10 +20,9 @@
           <li class="nav-item">
             <a
               class="nav-link fw-semibold hover-main"
-              aria-current="page"
-              routerLink="/login"
+                            routerLink="/login"
               routerLinkActive="text-main"
-              >login</a
+              >Login</a
             >
           </li>
           <li class="nav-item">
@@ -29,7 +30,7 @@
               class="nav-link fw-semibold hover-main"
               routerLink="/register"
               routerLinkActive="text-main"
-              >register</a
+              >Register</a
             >
           </li>
         </ul>
@@ -38,8 +39,7 @@
           <li class="nav-item">
             <a
               class="nav-link fw-semibold hover-main"
-              aria-current="page"
-              routerLink="/home"
+                            routerLink="/home"
               routerLinkActive="text-main"
               >Home</a
             >
@@ -47,17 +47,15 @@
           <li class="nav-item">
             <a
               class="nav-link fw-semibold hover-main"
-              aria-current="page"
-              routerLink="/products"
+                            routerLink="/products"
               routerLinkActive="text-main"
-              >Products</a
+              >Shop</a
             >
           </li>
           <li class="nav-item">
             <a
               class="nav-link fw-semibold hover-main"
-              aria-current="page"
-              routerLink="/category"
+                            routerLink="/category"
               routerLinkActive="text-main"
               >Categories</a
             >
@@ -65,10 +63,17 @@
           <li class="nav-item">
             <a
               class="nav-link fw-semibold hover-main"
-              aria-current="page"
-              routerLink="/brands"
+                            routerLink="/brands"
               routerLinkActive="text-main"
               >Brands</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-semibold hover-main"
+              routerLink="/allorders"
+              routerLinkActive="text-main"
+              >Orders</a
             >
           </li>
         </ul>
