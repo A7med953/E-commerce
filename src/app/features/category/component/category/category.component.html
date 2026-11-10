@@ -1,1 +1,36 @@
-<p>category works!</p>
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-4">All Categories</h2>
+
+    @if (!isLoaded) {
+      <div class="text-center py-5">
+        <span class="spinner-border text-success" role="status"></span>
+      </div>
+    }
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+      @for (category of categories; track category._id) {
+        <div class="col">
+          <div
+            class="category-card h-100"
+            [class.active]="selectedCategory?._id === category._id"
+            (click)="selectCategory(category)"
+          >
+            <img [src]="category.image" [alt]="category.name" loading="lazy" />
+            <h3 class="h5 text-main fw-bold text-center p-3 mb-0">
+              {{ category.name }}
+            </h3>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<div #productsAnchor></div>
+@if (selectedCategory) {
+  <app-product-list
+    [categoryId]="selectedCategory._id"
+    [title]="selectedCategory.name + ' Products'"
+  ></app-product-list>
+}

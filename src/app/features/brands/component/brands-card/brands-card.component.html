@@ -1,1 +1,4 @@
-<p>brands-card works!</p>
+<div class="brand-card h-100" [class.active]="active" (click)="pick.emit(brand)">
+  <img [src]="brand.image" [alt]="brand.name" loading="lazy" />
+  <p class="text-center fw-semibold mb-0 pb-3">{{ brand.name }}</p>
+</div>

@@ -1,1 +1,36 @@
-<p>category-slider works!</p>
+<section class="pt-5">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h2 class="fw-bold mb-0">Shop by Category</h2>
+      @if (selectedId) {
+        <button type="button" class="btn btn-sm btn-outline-success" (click)="select(null)">
+          Show all products
+        </button>
+      }
+    </div>
+
+    <div class="category-track">
+      <button
+        type="button"
+        class="category-item all-item"
+        [class.active]="!selectedId"
+        (click)="select(null)"
+      >
+        <span class="all-icon"><i class="fa-solid fa-border-all"></i></span>
+        <span class="category-name">All</span>
+      </button>
+
+      @for (category of categories; track category._id) {
+        <button
+          type="button"
+          class="category-item"
+          [class.active]="selectedId === category._id"
+          (click)="select(category)"
+        >
+          <img [src]="category.image" [alt]="category.name" loading="lazy" />
+          <span class="category-name">{{ category.name }}</span>
+        </button>
+      }
+    </div>
+  </div>
+</section>

@@ -1,2 +1,9 @@
 <app-main-slider></app-main-slider>
-<app-product-list></app-product-list>
+<app-category-slider
+  [selectedId]="selectedCategory?._id ?? null"
+  (selectCategory)="onSelectCategory($event)"
+></app-category-slider>
+<app-product-list
+  [categoryId]="selectedCategory?._id ?? null"
+  [title]="selectedCategory ? selectedCategory.name : 'Popular Products'"
+></app-product-list>

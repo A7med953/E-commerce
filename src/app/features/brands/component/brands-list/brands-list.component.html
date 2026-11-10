@@ -1,1 +1,31 @@
-<p>brands-list works!</p>
+<section class="py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-4">All Brands</h2>
+
+    @if (!isLoaded) {
+      <div class="text-center py-5">
+        <span class="spinner-border text-success" role="status"></span>
+      </div>
+    }
+
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
+      @for (brand of brands; track brand._id) {
+        <div class="col">
+          <app-brands-card
+            [brand]="brand"
+            [active]="selectedBrand?._id === brand._id"
+            (pick)="selectBrand($event)"
+          />
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<div #productsAnchor></div>
+@if (selectedBrand) {
+  <app-product-list
+    [brandId]="selectedBrand._id"
+    [title]="selectedBrand.name + ' Products'"
+  ></app-product-list>
+}

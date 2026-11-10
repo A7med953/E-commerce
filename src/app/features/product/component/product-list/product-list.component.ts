@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, OnChanges, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { ProductCardComponent } from '../product-card/product-card.component';
@@ -13,8 +13,14 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnChanges {
+  // Optional filters: when set, only products of this category / brand are shown
+  @Input() title = 'Popular Products';
+  @Input() categoryId: string | null = null;
+  @Input() brandId: string | null = null;
+
   allProducts: Product[] = [];
+  isLoaded = false;
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
   private readonly toastr= inject(ToastrService)
@@ -23,11 +29,19 @@ export class ProductListComponent {
     this.toastr.success(msg,'',{progressBar:true,timeOut:1500,closeButton:true });
   }
   getAllProducts() {
-    this.productsService.getProducts().subscribe({
-      next: (data) => {
-        this.allProducts = data.data;
-      },
-    });
+    this.isLoaded = false;
+    this.productsService
+      .getProducts({ category: this.categoryId, brand: this.brandId })
+      .subscribe({
+        next: (data) => {
+          this.allProducts = data.data;
+          this.isLoaded = true;
+        },
+        error: () => {
+          this.allProducts = [];
+          this.isLoaded = true;
+        },
+      });
   }
   addProductToCart(id: string) {
     this.cartService.addProductToCart(id).subscribe({
@@ -37,7 +51,8 @@ export class ProductListComponent {
       },
     });
   }
-  ngOnInit(): void {
+  // Runs on first render and every time a filter input changes
+  ngOnChanges(): void {
     this.getAllProducts();
   }
 }
